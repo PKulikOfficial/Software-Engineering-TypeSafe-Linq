@@ -1,12 +1,5 @@
 "use strict";
-const then = (first, second) => fun((input) => second(first(input)));
-const fun = (f) => {
-    const fDecorated = f;
-    fDecorated.then = function (postProcess) {
-        return then(this, postProcess);
-    };
-    return fDecorated;
-};
+// FROM LESSONS
 /*
 DATA EXAMPLE
 VALID QUERY
@@ -22,4 +15,5 @@ let students = [
     { "Name": "Albert", "Surname": "Einstein", "Grades": [{ "Grade": 7, "CourseId": 20 }] },
     { "Name": "Patryk", "Surname": "Kulik", "Grades": [{ "Grade": 9, "CourseId": 20 }] }
 ];
+
 console.log(students.map(t => [t.Name, t.Surname, t.Grades[0].CourseId]));

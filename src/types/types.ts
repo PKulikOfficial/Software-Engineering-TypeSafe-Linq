@@ -8,3 +8,7 @@ export interface student {
     Surname: string,
     Grades: Array<grades>
 }
+
+export interface table<T> {
+    data : T
+}
