@@ -1,17 +1,21 @@
-interface Fun<input,output>{
+export interface Fun<input,output>{
     (_:input) : output,
-    then<finalOutput>(postProcess:Fun<output, finalOutput>) : Fun<input,finalOutput>
+    Then<finalOutput>(postProcess:Fun<output, finalOutput>) : Fun<input,finalOutput>
 }
 
-const then = <input, intermediateOutput, output>(
+export const Then = <input, intermediateOutput, output>(
     first:Fun<input,intermediateOutput>,second:Fun<intermediateOutput,output>) : Fun<input,output> =>
-    fun((input:input) => second(first(input))
+    Fun((input:input) => second(first(input))
 )
 
-const fun = <input,output>(f:(_:input) => output) : Fun<input,output> => {
+export const Fun = <input,output>(f:(_:input) => output) : Fun<input,output> => {
     const fDecorated = f as Fun<input,output>
-    fDecorated.then = function<finalOutput>(this:Fun<input, output>, postProcess:Fun<output, finalOutput>) : Fun<input,finalOutput> {
-    return then(this, postProcess)
+    fDecorated.Then = function<finalOutput>(this:Fun<input, output>, postProcess:Fun<output, finalOutput>) : Fun<input,finalOutput> {
+        return Then(this, postProcess)
     }
     return fDecorated
 }
+
+export const pickMany = <T, K extends keyof T>(entity: T, props: K[]) => {
+    return props.reduce((s, prop) => (s[prop] = entity[prop], s) , {} as Pick<T, K>)
+} 
