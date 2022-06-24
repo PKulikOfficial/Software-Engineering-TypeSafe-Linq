@@ -15,7 +15,7 @@ export const Query = <T,R>(Data: Array<T>, Result: Array<R> ) : Query<T,R> => ({
     Result: Result,
     Select: function<K extends keyof T>(...props: Array<K>): Query<T,Pick<T,K>> {
         let resultProps = Object.keys(this.Result[0])       
-        let newProps = [...resultProps, ...props] as unknown as K[]
+        let newProps = [...resultProps, ...props] as K[]
         return Query(Data, Data.map(r => pickMany(r,newProps)))
     },
     Include: function<K extends keyof T, T2 extends T[K] extends Array<infer I> ? I : never, K2 extends keyof T2>

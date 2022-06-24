@@ -18,4 +18,4 @@ export const Fun = <input,output>(f:(_:input) => output) : Fun<input,output> => 
 
 export const pickMany = <T, K extends keyof T>(entity: T, props: K[]) => {
     return props.reduce((s, prop) => (s[prop] = entity[prop], s) , {} as Pick<T, K>)
-} 
+}

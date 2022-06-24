@@ -22,7 +22,6 @@ const Query = (Data, Result) => ({
         let newObj = null;
         for (var j = 0; j < subquery.length; j++) {
             newObj = Object.assign({}, Result[j], { [prop]: subqueryData[j][0] });
-            //newObj = Object.assign({},Result[j], prop.toString() + j.toString() ,subqueryData[j][0])
             finaldata = [...finaldata, newObj];
         }
         return (0, exports.Query)(Data, finaldata);
