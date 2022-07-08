@@ -7,8 +7,6 @@ const Query = (Data, Result) => ({
     Data: Data,
     Result: Result,
     Select: function (...props) {
-        let resultProps = Object.keys(this.Result[0]);
-        let newProps = [...resultProps, ...props];
         let newdata = Data.map(r => (0, utils_1.pickMany)(r, props));
         let outputData = [];
         let newObj = null;
