@@ -9,7 +9,14 @@ const Query = (Data, Result) => ({
     Select: function (...props) {
         let resultProps = Object.keys(this.Result[0]);
         let newProps = [...resultProps, ...props];
-        return (0, exports.Query)(Data, Data.map(r => (0, utils_1.pickMany)(r, newProps)));
+        let newdata = Data.map(r => (0, utils_1.pickMany)(r, props));
+        let outputData = [];
+        let newObj = null;
+        for (var i = 0; i < Result.length; i++) {
+            newObj = Object.assign({}, Result[i], newdata[i]);
+            outputData = [...outputData, newObj];
+        }
+        return (0, exports.Query)(Data, outputData);
     },
     Include: function (prop, query) {
         let subquery = Data.map(e => ({ [prop]: query((0, table_1.Table)(e[prop])) }));
