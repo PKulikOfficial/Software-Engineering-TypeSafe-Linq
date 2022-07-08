@@ -17,25 +17,41 @@ const students: Student[] = [
   { "Name": "Patryk", "Surname": "Kulik", "Grades":[{ "Grade": 9, "CourseId":20}]},
   { "Name": "Beau", "Surname": "Gutlich", "Grades":[{ "Grade": 10, "CourseId":15}]},
 ]
+
+// Initializing Table
 const data = Table(students)
 
-// Normal Select
+// Select
 const select1 = data.Select("Name")
 const select2 = select1.Select("Surname")
-const select3 = select2.Include("Grades", q => q.Select("Grade", "CourseId"))
 
-//const 
+// Include
+const include1 = select2.Include("Grades", q => q.Select("Grade", "CourseId"))
+const include2 = select2.Include("Grades", q => q.Select("CourseId"))
 
-console.log(select2.Result)
-console.log(select3.Result)
+// Print Select and Include
+//console.table(select1.Result)
+//console.table(select2.Result)
+//console.table(include1.Result)
+//console.table(JSON.stringify(include1.Result,null,1)) //To show Include
+//console.table(include2.Result)
+//console.table(JSON.stringify(include2.Result,null,1)) //To show Include
+
+//Initializing Lazy Table
+const lazy = LazyTable<Student>()
 
 // Lazy Select
-const lazy = LazyTable<Student>()
-const testlazy1 = lazy.Select("Name")
-const testlazy2 = testlazy1.Select("Surname",) 
-const testlazy3 = testlazy1.Include("Grades", a => a.Select("Grade", "CourseId"))
+const lazySelect1 = lazy.Select("Name")
+const lazySelect2 = lazySelect1.Select("Surname")
 
+// Lazy Include
+const lazyInclude1 = lazySelect2.Include("Grades", a => a.Select("Grade", "CourseId"))
+const lazyInclude2 = lazySelect2.Include("Grades", a => a.Select("CourseId"))
 
-console.log(testlazy1.From(data))
-console.log(testlazy2.From(data))
-console.log(testlazy3.From(data))
+// Print Lazy Select and Include
+//console.table(lazySelect1.From(data))
+//console.table(lazySelect2.From(data))
+//console.table(lazyInclude1.From(data))
+//console.table(JSON.stringify(lazyInclude1.From(data),null,1))
+//console.table(lazyInclude2.From(data))
+//console.table(JSON.stringify(lazyInclude2.From(data),null,1))
